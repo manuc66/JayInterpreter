@@ -154,7 +154,7 @@ void Value::normalizeDate() {
   positive = d->intValue > 0;
   int i = m->intValue-1;
   // set number of day in february
-  if ((y->intValue % 4 == 0) && (y->intValue % 100 != 0) || (y->intValue % 400 == 0))
+  if (((y->intValue % 4 == 0) && (y->intValue % 100 != 0)) || (y->intValue % 400 == 0))
     days[1] = 29; //    "y is bissextile";
   else
     days[1] = 28; //    "y is not bissextile";
@@ -172,7 +172,7 @@ void Value::normalizeDate() {
 	i = 0;
 
 	// set number of day in frebruary
-	if ((y->intValue % 4 == 0) && (y->intValue % 100 != 0) || (y->intValue % 400 == 0))
+	if ((((y->intValue % 4 == 0) && (y->intValue % 100 != 0))) || (y->intValue % 400 == 0))
 	  days[1] = 29; //    "y is bissextile";
 	else
 	  days[1] = 28; //    "y is not bissextile";
@@ -185,7 +185,7 @@ void Value::normalizeDate() {
 	m->intValue = 12;
 	y->intValue -= 1;
 	// set number of day in frebruary
-	if ((y->intValue % 4 == 0) && (y->intValue % 100 != 0) || (y->intValue % 400 == 0))
+	if ((y->intValue % 4 == 0 && y->intValue % 100 != 0) || (y->intValue % 400 == 0))
 	  days[1] = 29; //    "y is bissextile";
 	else
 	  days[1] = 28; //    "y is not bissextile";

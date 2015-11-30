@@ -8,6 +8,7 @@
 #include <sstream>
 #include <string>
 #include <stdexcept>
+#include <cstdlib>
 
 using namespace std;
 
@@ -100,7 +101,7 @@ Value Semantics::applyBinary(const Operator *op,
 	int s2;
 	string date_time_command;
 
-	if (y2->intValue < 1970) || (y2->intValue > 2057) || (y1->intValue < 1970) || (y1->intValue > 2057) {
+	if ((y2->intValue < 1970) || (y2->intValue > 2057) || (y1->intValue < 1970) || (y1->intValue > 2057)) {
 	  throw runtime_error("Diff of date can't be done, only for date with year beetween  1970 and 2057");
 	}
 
@@ -177,7 +178,7 @@ Value Semantics::applyBinary(const Operator *op,
 	}
       }
       if (op->val == Operator::LE) {
-	if ((y1->intValue < y2->intValue) || (d1->intValue == d2->intValue) && (m1->intValue == m2->intValue) && (y1->intValue == y2->intValue))
+	if ((y1->intValue < y2->intValue) || (d1->intValue == d2->intValue && m1->intValue == m2->intValue && y1->intValue == y2->intValue))
 	  return Value(true);
 	else if (y1->intValue > y2->intValue)
 	  return Value(false);
@@ -197,7 +198,7 @@ Value Semantics::applyBinary(const Operator *op,
 	return Value((d1->intValue != d2->intValue) && (m1->intValue != m2->intValue) && (y1->intValue != y2->intValue));
       }
       if (op->val == Operator::GE) {
-	if ((y1->intValue > y2->intValue) || (d1->intValue == d2->intValue) && (m1->intValue == m2->intValue) && (y1->intValue == y2->intValue))
+	if ((y1->intValue > y2->intValue) || (d1->intValue == d2->intValue && m1->intValue == m2->intValue && y1->intValue == y2->intValue))
 	  return Value(true);
 	else if (y1->intValue < y2->intValue)
 	  return Value(false);
@@ -254,20 +255,30 @@ Value Semantics::M(Expression *e, State *sigma) {
       vv->normalizeDate();
       return *vv;
     }
-    return *v;
+    else  {
+      return *v;
+    }
   }
-  if (e->name() == "Variable")
-    if ((sigma->ms.find(dynamic_cast<Variable*>(e)->id) == sigma->ms.end()))
+  else if (e->name() == "Variable") {
+    if ((sigma->ms.find(dynamic_cast<Variable*>(e)->id) == sigma->ms.end())) {
       return Value();
-    else return sigma->ms[dynamic_cast<Variable*>(e)->id];
-  if (e->name() == "Binary")
+    }
+    else {
+      return sigma->ms[dynamic_cast<Variable*>(e)->id];
+    }
+  }
+  else if (e->name() == "Binary") {
     return applyBinary(dynamic_cast<Binary*>(e)->op,
 		       M(dynamic_cast<Binary*>(e)->term1, sigma),
 		       M(dynamic_cast<Binary*>(e)->term2, sigma));
-  if (e->name() == "Unary")
+  }
+  else if (e->name() == "Unary") {
     return applyUnary(dynamic_cast<Unary*>(e)->op,
 		      M(dynamic_cast<Unary*>(e)->term, sigma));
-  return Value(); //NULL
+  }
+  else {
+    return Value(); //NULL
+  }
 }
 
 

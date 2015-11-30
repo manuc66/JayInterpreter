@@ -156,7 +156,7 @@ bool  TokenStream::isOperator(char c) const {
 
 
 bool TokenStream::isLetter(char c) const {
-  return (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z');    
+  return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');    
 }
 
 
