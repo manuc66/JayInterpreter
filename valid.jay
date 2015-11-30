@@ -1,0 +1,27 @@
+void main () {
+  int nbDay;
+  date d;
+  date debut, fin;
+
+  nbDay = 2;
+  d = 4:5:2005;
+  d = d + nbDay;
+  d = ((1 + 2) * 2):(nbDay * 2 - 1):2005;
+  if (!(d <= 4:5:2005)) {
+    nbDay = 4;
+    d = d - 4;
+  }
+  else if (d == 24:12:00)
+    d = 0:0:0 + 2;
+  else if ((d == 24:12:00) != (d >= 4:5:2005)) {
+    d = debut;
+    nbDay = 1024;
+  }
+  else {
+    debut = 30:08:1984;
+    fin = 29:08:1984;
+    nbDay = fin - debut;
+    d = nbDay + d;	
+  }
+}
+//end of program

@@ -1,0 +1,16 @@
+void main () {
+  int nbDay, b;
+  date d, e;
+  date debut, fin;
+
+  nbDay = 2;
+  b = 1;
+  b = b + nbDay; 
+  d = (0-731):1:2005;
+ // e = d;
+ // d = nbDay + d + 6;
+ // d = d + 2 + nbDay;
+ // b = d - e;
+
+}
+//end of program
